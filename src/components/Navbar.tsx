@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 interface Props {
   currentPath?: string;
@@ -28,47 +28,39 @@ export default function Navbar({ currentPath = '/' }: Props) {
   };
 
   return (
-    <header className="sticky top-0 z-50 transition-all duration-200 glass-header">
+    <header className="sticky top-0 z-[300] bg-paper-2/95 backdrop-blur-md border-b border-rule transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo & Academic Crest */}
-          <a href="/" className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 rounded-xl bg-slate-900 border-2 border-amber-500/80 p-0.5 shadow-md flex items-center justify-center transition-transform group-hover:scale-105">
-              <div className="w-full h-full bg-slate-950 rounded-[8px] flex flex-col items-center justify-center text-center">
-                <span className="font-mono text-amber-400 font-extrabold text-sm tracking-tighter leading-none">
-                  UOS
-                </span>
-                <span className="font-mono text-white text-[9px] font-semibold tracking-tight">
-                  ES
-                </span>
-              </div>
+          {/* Logo & Official Society Identity */}
+          <a
+            href="/"
+            className="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px"
+          >
+            <div className="w-11 h-11 rounded-lg bg-navy p-1 flex items-center justify-center shrink-0 border border-deep-navy shadow-sm">
+              <img
+                src="/images/ues-logo-transparent-dark-bg.svg"
+                alt="UES Official Logo"
+                className="w-9 h-9 object-contain"
+              />
             </div>
 
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-base tracking-tight text-slate-900 group-hover:text-blue-900 transition-colors">
-                  UOS Entrepreneurship Society
-                </span>
-                <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" title="Official Student Chapter" />
-              </div>
-              <span className="text-xs font-mono text-slate-500 tracking-wide uppercase">
-                University of Sahiwal
-              </span>
-            </div>
+            <span className="font-bold text-base tracking-tight text-ink group-hover:text-navy transition-colors">
+              UOSahiwal Entrepreneurship Society
+            </span>
           </a>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1.5">
+          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`px-4 py-2 text-xs font-semibold rounded-lg transition-colors ${
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px ${
                     active
-                      ? 'bg-slate-100 text-blue-950 font-bold'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'bg-paper-3 text-ink font-bold'
+                      : 'text-muted hover:text-ink hover:bg-paper-3'
                   }`}
                 >
                   {link.label}
@@ -80,24 +72,24 @@ export default function Navbar({ currentPath = '/' }: Props) {
           {/* Action Buttons */}
           <div className="hidden sm:flex items-center gap-3">
             <a
-              href="https://github.com/uos-entrepreneurship"
+              href="https://github.com/ues-sahiwal"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-600 hover:text-slate-900 flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="text-xs text-muted hover:text-ink flex items-center gap-1 px-3 py-1.5 rounded-md hover:bg-paper-3 transition-colors focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px"
             >
               <span>GitHub</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-muted" />
             </a>
 
             <a
               href="/join"
-              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm ${
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition-opacity shadow-sm focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px ${
                 activePath === '/join'
-                  ? 'bg-amber-400 text-slate-950 shadow-md'
-                  : 'bg-slate-900 text-white hover:bg-blue-950'
+                  ? 'bg-accent text-accent-ink'
+                  : 'bg-navy text-white hover:opacity-95'
               }`}
             >
-              Join the Society
+              Join the society
             </a>
           </div>
 
@@ -105,8 +97,9 @@ export default function Navbar({ currentPath = '/' }: Props) {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 rounded-lg bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200"
+              className="p-2 rounded-md bg-paper-3 text-ink hover:text-navy border border-rule focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px"
               aria-label="Toggle Navigation"
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -116,37 +109,37 @@ export default function Navbar({ currentPath = '/' }: Props) {
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2">
+        <div className="md:hidden bg-paper-2 border-b border-rule px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className={`block px-3 py-2.5 rounded-lg text-sm font-semibold ${
+              className={`block px-3 py-2 rounded-md text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px ${
                 isActive(link.href)
-                  ? 'bg-slate-100 text-blue-950 font-bold'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                  ? 'bg-paper-3 text-ink font-bold'
+                  : 'text-muted hover:text-ink hover:bg-paper-3'
               }`}
             >
               {link.label}
             </a>
           ))}
-          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+          <div className="pt-3 border-t border-rule flex flex-col gap-2">
             <a
-              href="https://github.com/uos-entrepreneurship"
+              href="https://github.com/ues-sahiwal"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-600 py-2 flex items-center justify-between"
+              className="text-xs text-muted py-2 flex items-center justify-between transition-colors focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px"
             >
-              <span>GitHub Organization Hub</span>
+              <span>GitHub organization</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
             <a
               href="/join"
               onClick={() => setMobileOpen(false)}
-              className="w-full text-center py-2.5 rounded-xl text-xs font-bold text-white bg-slate-900"
+              className="w-full text-center py-2 rounded-lg text-xs font-bold text-white bg-navy hover:opacity-95 transition-opacity focus-visible:outline-2 focus-visible:outline-navy active:translate-y-px"
             >
-              Join the Society
+              Join the society
             </a>
           </div>
         </div>
